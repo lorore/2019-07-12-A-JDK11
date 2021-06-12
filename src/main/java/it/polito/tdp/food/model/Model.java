@@ -17,6 +17,7 @@ import it.polito.tdp.food.db.FoodDao;
 public class Model {
 	private Graph<Food, DefaultWeightedEdge> graph;
 	private Map<Integer, Food> idMap;
+	private Simulator sim;
 	
 	
 	private FoodDao dao;
@@ -68,6 +69,23 @@ public class Model {
 		Collections.sort(vertici);
 		return vertici;
 		
+	}
+	
+	public void simula(int k, Food f) {
+		sim=new Simulator();
+		sim.setSimulator(graph,k ,f);
+		sim.init();
+		sim.sim();
+		
+	}
+	
+	public Food getFood(String nome) {
+		List<Food> l=this.getVertici();
+		for(Food f: l) {
+			if(f.getDisplay_name().equals(nome))
+				return f;
+		}
+		return null;
 	}
 
 }
