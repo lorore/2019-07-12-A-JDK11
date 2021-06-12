@@ -52,11 +52,17 @@ public class Simulator {
 		while((e = this.queue.poll()) != null) {
 			Food f=e.getF();
 			this.minutiTot=e.getT();
-			Food2 migliorVicino=this.getTop(f);
-			if(migliorVicino!=null && !cibiCucinati.contains(migliorVicino.getF())) {
-				queue.add(new Event(e.getT()+migliorVicino.getCalorie(), migliorVicino.getF()));
-				cibiCucinati.add(migliorVicino.getF());
+			List<Food2> vicini=this.getTopK(f);
+			for(Food2 migliorVicino: vicini) {
+				if(migliorVicino!=null && !cibiCucinati.contains(migliorVicino.getF())) {
+					queue.add(new Event(e.getT()+migliorVicino.getCalorie(), migliorVicino.getF()));
+					cibiCucinati.add(migliorVicino.getF());
+					break;
+				}
 			}
+			
+			
+			
 			
 		}
 		
@@ -75,17 +81,6 @@ public class Simulator {
 		return result;
 	}
 	
-	private Food2 getTop(Food f){
-		List<Food> vicini=Graphs.neighborListOf(graph, f);
-		List<Food2> result=new ArrayList<>();
-		for(Food c: vicini) {
-			double peso=graph.getEdgeWeight(graph.getEdge(c, f));
-			result.add(new Food2(c, peso));
-		}
-		Collections.sort(result);
-		if(result.isEmpty())
-			return null;
-		return result.get(0);
-	}
+	
 	
 }

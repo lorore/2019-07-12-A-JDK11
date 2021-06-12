@@ -6,7 +6,7 @@ public class TestModel {
 Model m=new Model();
 m.creaGrafo(1);
 Food f=m.getFood("English muffin");
-m.simula(5, f);
+m.simula(4, f);
 	}
 
 }
