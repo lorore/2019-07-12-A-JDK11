@@ -27,7 +27,11 @@ public class Food2 implements Comparable<Food2>{
 		}
 	@Override
 	public int compareTo(Food2 o) {
-		return -Double.compare(calorie, o.calorie);
+		if(Double.compare(calorie, o.calorie)==0)
+				return this.f.getDisplay_name().compareTo(o.f.getDisplay_name());
+		else
+			return -Double.compare(calorie, o.calorie);
+		
 	}
 	
 	

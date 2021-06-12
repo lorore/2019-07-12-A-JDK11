@@ -114,10 +114,10 @@ public class FoodDao {
 	
 	public void getVertici(Map<Integer, Food> idMap, int p) {
 		String sql="SELECT p.food_code AS v, f.display_name AS nome "
-				+ "FROM portio p, food f "
+				+ "FROM `portion` p, food f "
 				+ "WHERE p.food_code=f.food_code "
 				+ "GROUP BY p.food_code, f.display_name "
-				+ "HAVING COUNT(p.portion_id)<=? "
+				+ "HAVING COUNT(p.portion_id)=? "
 				+ "ORDER BY nome ";
 		
 		try {
@@ -151,14 +151,14 @@ public class FoodDao {
 				+ "AND fc1.condiment_code=c.condiment_code "
 				+ "AND fc1.food_code IN ( "
 				+ "SELECT p.food_code "
-				+ "FROM portio p "
+				+ "FROM `portion` p "
 				+ "GROUP BY p.food_code "
-				+ "HAVING COUNT(p.portion_id)<=?) "
+				+ "HAVING COUNT(p.portion_id)=?) "
 				+ "AND fc2.food_code IN ( "
 				+ "SELECT p.food_code "
-				+ "FROM portio p "
+				+ "FROM `portion` p "
 				+ "GROUP BY p.food_code "
-				+ "HAVING COUNT(p.portion_id)<=?) "
+				+ "HAVING COUNT(p.portion_id)=?) "
 				+ "GROUP BY fc1.food_code, fc2.food_code "
 				+ "HAVING COUNT(DISTINCT fc1.condiment_code)>0 "
 				+ "ORDER BY f1 ";
